@@ -30,8 +30,7 @@ class Discovery extends Abstract {
     this.port = port;
 
     try {
-      await axios.post(this.getDiscoveryHost() + '/register', {
-        name: name,
+      await axios.post(this.getDiscoveryHost() + '/register/' + name, {
         host: host,
         port: port
       });
