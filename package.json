@@ -1,6 +1,6 @@
 {
   "name": "ontime-be-common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ontime backend common classes and libraries",
   "private": false,
   "main": "index.js",
