@@ -30,10 +30,7 @@ class Discovery extends Abstract {
     this.port = port;
 
     try {
-      await axios.post(this.getDiscoveryHost() + '/register/' + name, {
-        host: host,
-        port: port
-      });
+      await axios.post(this.getDiscoveryHost() + '/register/' + name, { host, port });
 
       if (!this.isRegistered) {
         logger.info('Discovery/registered', name);
@@ -43,7 +40,7 @@ class Discovery extends Abstract {
     } catch (err) {
       this.isRegistered = false;
 
-      logger.error('Discovery/register', err);
+      logger.error('Discovery/register', err.message || err);
 
       setTimeout(async () => await this.register(name, host, port), 1000);
 
@@ -57,7 +54,7 @@ class Discovery extends Abstract {
     try {
       await axios.delete(this.getDiscoveryHost() + '/register/' + this.name);
     } catch (err) {
-      logger.error('Discovery/unregister', err);
+      logger.error('Discovery/unregister', err.message || err);
 
       throw err;
     }
