@@ -17,11 +17,17 @@ class Discovery extends Abstract {
     this.host = null;
     this.port = null;
 
+    this._host = null;
+
     this.isRegistered = false;
   }
 
   getDiscoveryHost() {
-    return 'http://' + this.options.host + ':' + this.options.port;
+    if (!this._host) {
+      this._host = 'http://' + this.options.host + ':' + this.options.port;
+    }
+
+    return this._host;
   }
 
   async register(name, host, port) {
@@ -74,8 +80,14 @@ class Discovery extends Abstract {
     return response;
   }
 
-  url(name, url, qs = {}) {
-    return this.getDiscoveryHost() + '/api/' + name + (url || '') + '?' + querystring.stringify(qs);
+  url(name, url = '', qs = {}) {
+    let extraArgs = querystring.stringify(qs);
+
+    if (extraArgs) {
+      extraArgs = '?' + extraArgs;
+    }
+
+    return this.getDiscoveryHost() + '/api/' + name + url + extraArgs;
   }
 
 }

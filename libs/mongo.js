@@ -3,7 +3,6 @@ const session = require('express-session');
 const logger = require('./logger');
 const MongoStore = require('connect-mongo')(session);
 const mongoOptions = {
-  useMongoClient: true,
   server: {auto_reconnect: true}
 };
 
